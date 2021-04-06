@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import HeaderBanner from './components/headerBanner'
+import {getEvents} from './fetch/fetchEvents'
+import {React, useState, useEffect} from 'react'
 
 function App() {
+  const [events,setEvents] = useState('')
+  
+
+  useEffect(  () => {
+    const fetch = async () => {
+      const apiEvents = await getEvents();
+      setEvents(apiEvents)
+    }
+   fetch();
+    
+  },[]);
+
+  const handleSearch = (e) => {
+    alert(JSON.stringify(events))
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <HeaderBanner handleSearch = {handleSearch}/> 
     </div>
   );
 }

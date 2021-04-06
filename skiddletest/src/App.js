@@ -7,7 +7,9 @@ import {React, useState, useEffect} from 'react'
 
 function App() {
   const [events,setEvents] = useState([])
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [searchText,setSearchText] = useState('')
+
   
 
   const fetchEvents = async () => {
@@ -20,21 +22,18 @@ function App() {
   },[]);
 
   const handleSearch = (e) => {
-    if(!e.currentTarget.value) {
-      fetchEvents();
-    }
 
   setSearchText(e.currentTarget.value)
    const filteredEvents = events.filter((ev) => {
       return ev.eventname.toLowerCase().includes(e.currentTarget.value.toLowerCase())
     })
-    setEvents(filteredEvents)
+    setFilteredEvents(filteredEvents)
     
   }
   return (
     <div className="App">
       <HeaderBanner handleSearch = {handleSearch}/> 
-      <Events events = {events} searchValue = {searchText}/>
+      <Events events = {filteredEvents} searchValue = {searchText}/>
     </div>
   );
 }

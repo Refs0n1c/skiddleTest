@@ -11,14 +11,16 @@ function App() {
   useEffect(  () => {
     const fetch = async () => {
       const apiEvents = await getEvents();
-      setEvents(apiEvents)
+      setEvents(apiEvents.results)
     }
    fetch();
     
   },[]);
 
   const handleSearch = (e) => {
-    alert(JSON.stringify(events))
+    events.filter((event) => {
+      return event.title.contains(e.currentTarget.value)
+    })
   }
   return (
     <div className="App">
